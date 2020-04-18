@@ -24,7 +24,6 @@ Module.register("MMM-DHT-Sensor", {
 		this.loaded = false;
 		this.updateTimer = null;
 		Log.info("Starting module: " + this.name);
-		//this.scheduleUpdate(this.config.initialLoadDelay);
 		this.updateSensorData(this);
 		Log.info("Starting DHT-Sensor timer: " + this.config.updateInterval);
 		setInterval(() => {
@@ -48,23 +47,6 @@ Module.register("MMM-DHT-Sensor", {
 		}
 		self.sendSocketNotification("GET_SENSOR_DATA", {"sensorPin": this.config.sensorPin, "sensorType": this.config.sensorType});
 	},
-
-	/* scheduleUpdate()
-   * Schedule next update.
-   * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
-   */
-	//scheduleUpdate: function(delay) {
-	//	var nextLoad = this.config.updateInterval;
-	//	if (typeof delay !== "undefined" && delay >= 0) {
-	//		nextLoad = delay;
-	//	}
-	//
-	//	var self = this;
-	//	clearTimeout(this.updateTimer);
-	//	this.updateTimer = setTimeout(function() {
-	//		self.updateSensorData(self);
-	//	}, nextLoad);
-	//},
 
 	processSensorData: function(data) {
 		if (typeof data !== "undefined" && data !== null) {
@@ -204,7 +186,6 @@ Module.register("MMM-DHT-Sensor", {
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "SENSOR_DATA") {
 			this.processSensorData(payload);
-			//this.scheduleUpdate(this.config.updateInterval);
 			if(this.config.debug) {
 				Log.info("socketNotificationReceived: SENSOR_DATA");
 			}
