@@ -25,10 +25,11 @@ Module.register("MMM-DHT-Sensor", {
 		this.updateTimer = null;
 		Log.info("Starting module: " + this.name);
 		//this.scheduleUpdate(this.config.initialLoadDelay);
-		//this.updateSensorData(this);
+		this.updateSensorData(this);
+		Log.info("Starting DHT-Sensor timer: " + this.config.updateInterval);
 		setInterval(() => {
 			this.updateSensorData(this);
-        }, this.config.updateInterval);
+        	}, this.config.updateInterval);
 	},
 
 	getStyles: function() {
